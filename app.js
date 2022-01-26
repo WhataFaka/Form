@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', ()  => {
           MailReg =  /[A-Za-z0-9-_]{1,}@[A-Za-z0-9-_]{1,}\.[a-z]{2,4}/,
           PassReg = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,16}/;
 
+
+
 // Фун-ия ошибки
           const generateError = function (text) {
             const error = document.createElement('div');
@@ -135,6 +137,7 @@ document.addEventListener('DOMContentLoaded', ()  => {
 
         checkDB();
         checkBoxAgree();
+        
     });
 });
 

@@ -19,9 +19,6 @@ li {
     list-style: none;
 }
 
-img {
-    vertical-align: none;
-}
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: inherit;
@@ -159,7 +156,6 @@ html,body {
 
     cursor: pointer;
 
-    transform: perspective(250px) scale3d(1, 1, 1);
     transition: all 1s cubic-bezier(0.03, 0.98, 0.52, 0.99);
     outline: none;
 }
