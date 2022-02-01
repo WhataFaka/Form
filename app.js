@@ -133,6 +133,9 @@ document.addEventListener('DOMContentLoaded', ()  => {
             } else {
               const error = generateError('Отправка данных только для лиц старше 18 лет');
               dateBirth.parentElement.insertBefore(error, dateBirth);
+              setTimeout(() => {
+                error.remove();
+              },4000);
             }
 
           };
@@ -142,6 +145,9 @@ document.addEventListener('DOMContentLoaded', ()  => {
             if (checkbox.getAttribute("type") === "checkbox" && checkbox.checked === false){
               const error = generateError('Подтвердите соглашение о условиях');
               checkbox.parentElement.insertBefore(error, checkbox);
+              setTimeout(() => {
+                error.remove();
+              },4000);
             }
           };
 
