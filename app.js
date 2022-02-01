@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', ()  => {
           checkbox = form.querySelector('.checkbox__input'),
           btn = form.querySelector('.form__btn');
 
-    const NameReg = /^[A-Za-zА-Яа-я]{2,30}$/,
-          MailReg =  /[A-Za-z0-9-_]{1,}@[A-Za-z0-9-_]{1,}\.[a-z]{2,4}/,
-          PassReg = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,16}/;
+    const NameReg = /^[A-Za-zА-Яа-я]{2,30}$|(^$)/,
+          MailReg =  /[A-Za-z0-9-_]{1,}@[A-Za-z0-9-_]{1,}\.[a-z]{2,4}|(^$)/,
+          PassReg = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,16}|(^$)/;
 
 
 
@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', ()  => {
                 if (!request[i].value) {
                     const error = generateError('Заполните поле');
                     form[i].parentElement.insertBefore(error, request[i]);
+                    setTimeout(() => {
+                      error.remove();
+                    },4000);
                 }
             }
           };
@@ -51,7 +54,11 @@ document.addEventListener('DOMContentLoaded', ()  => {
             if (password.value !== passConf.value) {
                 const error = generateError('Пароли не совпадают');
                 password.parentElement.insertBefore(error, password);
+                setTimeout(() => {
+                  error.remove();
+                },4000);
             }
+
           };
 
 // Проверка имени и фамилии
@@ -59,6 +66,9 @@ document.addEventListener('DOMContentLoaded', ()  => {
               if (!validate(NameReg, name.value)) {
                 const error = generateError('Некорректное имя');
                 name.parentElement.insertBefore(error, name);
+                setTimeout(() => {
+                  error.remove();
+                },4000);
               }
               function validate(reg, inp) {
                 return reg.test(inp);
@@ -69,6 +79,9 @@ document.addEventListener('DOMContentLoaded', ()  => {
               if (!validate(NameReg, surName.value)) {
                 const error = generateError('Некорректная фамилия');
                 surName.parentElement.insertBefore(error, surName);
+                setTimeout(() => {
+                  error.remove();
+                },4000);
               }
               function validate(reg, inp) {
                 return reg.test(inp);
@@ -80,6 +93,9 @@ document.addEventListener('DOMContentLoaded', ()  => {
             if (!validate(MailReg, email.value)) {
               const error = generateError('Некорректный адрес электронной почты');
               email.parentElement.insertBefore(error, email);
+              setTimeout(() => {
+                error.remove();
+              },4000);
             }
             function validate(reg, inp) {
               return reg.test(inp);
@@ -91,6 +107,9 @@ document.addEventListener('DOMContentLoaded', ()  => {
             if (!validate(PassReg, password.value)) {
               const error = generateError('Минимальная длина пароля 8 символов. Пароль должен содержать 0-9,Az,!@#$');
               password.parentElement.insertBefore(error, password);
+              setTimeout(() => {
+                error.remove();
+              },4000);
             }
             function validate(reg, inp) {
               return reg.test(inp);
@@ -100,14 +119,22 @@ document.addEventListener('DOMContentLoaded', ()  => {
 // Проверка возраста
           const checkDB = function () {
             let now = new Date();
+            let thisYear = now.getFullYear();
+
             let birthDay = new Date(dateBirth.value);
-            if ((now-birthDay) / (31536000000) >= 18) {
+            let birthDayYear = birthDay.getFullYear();
+            let birthDayMonth = birthDay.getMonth();
+            let birthDayDays = birthDay.getDate();
+            let currentDate = new Date(birthDayYear + 18, birthDayMonth, birthDayDays);
+
+            if (now >= currentDate) {
               const error = generateError('');
               dateBirth.parentElement.insertBefore(error, dateBirth);
             } else {
-              const error = generateError('Доступно для пользователей старше 18 лет');
+              const error = generateError('Отправка данных только для лиц старше 18 лет');
               dateBirth.parentElement.insertBefore(error, dateBirth);
             }
+
           };
 
 // Проверка checkbox
@@ -137,7 +164,7 @@ document.addEventListener('DOMContentLoaded', ()  => {
 
         checkDB();
         checkBoxAgree();
-        
+
     });
 });
 
